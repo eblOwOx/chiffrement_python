@@ -16,15 +16,25 @@ print(monHash.calculate_file_sha256(fichBin),"\n") # Calcul du hash du fichier b
 #Partie RSA
 fichPublic = 'files/rsa/fichPublic' # Localisation de la clef publique
 fichPrive = 'files/rsa/fichPrive' # Localisation de la clef privee
-fichTxtRsa = 'files/rsa/fichTxtRsa.txt' # Localisation du fichier texte à chiffrer
+fichTxtChiff = 'files/rsa/fichTxtChiff.txt' # Localisation du fichier texte chiffre
 
 #1ère partie
 monRsa = rsa.RsaGestion()
 monRsa.generation_clef(fichPublic, fichPrive, 1024) # Génération d'une paire de clefs
 message = "qwerty" # Message a chiffrer
-print("Chiffement du message : ", message)
+print("\nChiffement du message : ", message)
 messageChif = monRsa.chiffrement_rsa(message) # Chiffrement du message
 print("Message chiffre : ", messageChif, "\n")
 print("Dechiffrement du message : ", messageChif)
 messageDechif = monRsa.dechiffrement_rsa(messageChif) # Déchiffrement du message
 print("Message dechiffre : ", messageDechif, "\n")
+
+#2ème partie
+monRsa.chargement_clefs(fichPublic, fichPrive) # Chargement de la paire de clefs
+message2 = "Les blagues les plus courtes sont toujours les meilleurs"
+print("Chiffement du message dans un fichier texte : ", message2)
+monRsa.chiffre_dans_fichier(message2, fichTxtChiff) # Chiffrement du message dans un fichier
+print("Message chiffre : ", messageChif, "\n")
+print("Dechiffrement du fichier texte...")
+message2Dechif = monRsa.dechiffre_fichier(fichTxtChiff) # Déchiffrement du fichier
+print("Message dechiffre : ", message2Dechif, "\n")
