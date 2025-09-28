@@ -32,8 +32,10 @@ monAes.decrypt_file(crypt, decrypt) #Déchiffrement du fichier crypt.txt dans un
 print("Le fichier cryptaes.txt a ete dechiffre en un nouveau fichier nomme decryptaes.txt")
 #reprise de la clef aes de quelqu'un d'autre pour dechiffrer un message
 print("\nDechiffrement d'un message d'une autre personne avec une cle aes...")
-monAes.load_aes_key_from_file('files/aes/import/aes_keys.bin')
-monAes.decrypt_file('files/aes/import/test_crypting.txt', 'files/aes/import/decrypt.txt')
+monAes.load_aes_key_from_file('files/aes/import/aes_keys.bin') # Chargement de la clef AES 
+monAes.decrypt_file('files/aes/import/test_crypting.txt', 'files/aes/import/decrypt.txt') # Dechiffrage du message
+print("Message dechiffre, regarder dans file/aes/import/decrypt.txt")
+
 
 #Partie RSA
 print("\n\n################################## PARTIE RSA ####################################")
@@ -63,13 +65,24 @@ message2Dechif = monRsa.dechiffre_fichier(fichTxtChiff) # Déchiffrement du fich
 print("Message dechiffre : ", message2Dechif, "\n")
 
 #3ème partie
-#messageAEnvoyer = 'files/rsa/messageChiffre.txt'
-#monRsa.chargement_clefs(fichPublic, fichPrive) # Chargement de la paire de clefs
-#message3 = "sudo make me a sandwich - xkcd 2006"
-#print("Chiffement du message dans un fichier texte : ", message3)
-#monRsa.chiffre_dans_fichier(message3, messageAEnvoyer) # Chiffrement du message dans un fichier
-#print("Message chiffre a envoyer sur un autre pc : ", messageAEnvoyer, "\n")
+#Chiffrement d'un message dans un fichier texte, ce message doit etre envoyé avec la cle publique pour le dechiffrer
+messageAEnvoyer = 'files/rsa/messageChiffre.txt'
+monRsa.chargement_clefs(fichPublic, fichPrive) # Chargement de la paire de clefs
+message3 = "sudo make me a sandwich - xkcd 2006"
+print("Chiffement du message dans un fichier texte : ", message3)
+monRsa.chiffre_dans_fichier(message3, messageAEnvoyer) # Chiffrement du message dans un fichier
+print("Message chiffre a envoyer sur un autre pc : ", messageAEnvoyer, "\n")
 #Reprise de la clef publique et du message chiffre de quelqu'un d'autre
 #clefPubImport = 'files/rsa/import/'
 #print("\nChargement de la clef publique de quelqu'un d'autre...")
-#monRsa.chargement_clef_publique()
+#monRsa.chargement_clef_publique('files/rsa/import/clefPublic.txt')
+#print("Fichier deciffre : ", monRsa.dechiffrement_rsa('files/rsa/import/fichTxt.txt'))
+
+#4ème partie
+#Chiffrement d'un fichier binaire,meme manipulation que la 3ème partie
+binChiffre = 'files/rsa/binChiffre.txt'
+message4 = "01001000 01100101 01101100 01101100 01101111"
+monRsa.chargement_clefs(fichPublic, fichPrive) # Charegement de la paire de clefs
+print("\nChiffrement du message...\n")
+monRsa.chiffre_dans_fichier(message4, binChiffre) #chiffrement dans un fichier nomme binChiffre.txt
+print("Message chiffre dans : ", binChiffre,"\n")
